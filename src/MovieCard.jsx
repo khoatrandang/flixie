@@ -17,12 +17,12 @@ export default class MovieCard extends Component {
                     </CardHeaderIcon>
                 </CardHeader>
                 <CardImage>
-                    <Image isRatio='4:3' src={'https://image.tmdb.org/t/p/w185_and_h278_bestv2' + poster_path} />
+                    <Image isRatio='4:3' src={'https://image.tmdb.org/t/p/w342' + poster_path} />
                 </CardImage>
                 <CardContent>
                     <Media>
                         <MediaLeft>
-                            <Image isSize='48x48' src={'https://image.tmdb.org/t/p/w185_and_h278_bestv2' + backdrop_path} />
+                            <Image isSize='48x48' src={'https://image.tmdb.org/t/p/w45' + backdrop_path} />
                         </MediaLeft>
                         <MediaContent>
                             <Title isSize={4}>{ title }</Title>
