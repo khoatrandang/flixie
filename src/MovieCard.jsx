@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Box, Card, CardHeader, CardHeaderTitle, CardHeaderIcon, Icon, CardImage, Image, CardContent, Content, Media, MediaLeft, MediaContent, Title, Subtitle } from 'bloomer';
 
 import "./MovieCard.css";
@@ -36,4 +37,14 @@ export default class MovieCard extends Component {
             </Card>
         )
     }
+}
+
+MovieCard.propTypes = {
+    movie: PropTypes.shape({
+        title: PropTypes.string,
+        poster_path: PropTypes.string,
+        backdrop_path: PropTypes.string,
+        overview: PropTypes.string,
+        release_date: PropTypes.string
+    }),
 }

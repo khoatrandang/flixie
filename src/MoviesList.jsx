@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MovieCard from "./MovieCard";
 import { Button } from 'bloomer';
 
@@ -14,4 +15,10 @@ export default class MoviesList extends Component {
             </div>
         )
     }
+}
+
+MoviesList.propTypes = {
+    movies: PropTypes.array,
+    isLoading: PropTypes.bool,
+    handleLoadMoreClick: PropTypes.func,
 }

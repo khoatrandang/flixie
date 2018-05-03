@@ -13,7 +13,8 @@ class App extends Component {
 			allMovies: [],
 			movies:    [],
 			isLoading: true,
-			page:      1
+			page:      1,
+			searchText: '',
 		}
 	}
 
@@ -31,7 +32,12 @@ class App extends Component {
 	}
 
 	async componentDidMount() {
-		this.movies = await this.fetchMovies(this.state.page);
+		try {
+			this.movies = await this.fetchMovies(this.state.page);
+		} catch (e) {
+			alert('Error fetching the initial movie list');
+			this.movies = [];
+		}
 
 		this.sleep(3000);
 
@@ -44,17 +50,22 @@ class App extends Component {
 
 	async loadMore(e) {
 		const page = this.state.page + 1;
-		const newResults = await this.fetchMovies(page);
-		this.newMoviesList = this.state.movies.concat(newResults);
-		this.setState({
-			page,
-			movies: this.newMoviesList
-		});
+		try {
+			const newResults = await this.fetchMovies(page);
+			this.setState({
+				page,
+				allMovies: this.state.allMovies.concat(newResults)
+			});
+			this.handleSearch(this.state.searchText);
+		} catch (e) {
+			alert(`Error while fetching page ${page}`)
+		}
 	}
 
 	handleSearch(value) {
 		const filteredMovies = this.state.allMovies.filter( m => m.title.indexOf(value) !== -1 );
 		this.setState({
+			searchText: value,
 			movies: filteredMovies !== undefined ? filteredMovies : this.state.allMovies
 		});
 	}
