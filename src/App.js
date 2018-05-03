@@ -31,7 +31,12 @@ class App extends Component {
 	}
 
 	async componentDidMount() {
-		this.movies = await this.fetchMovies(this.state.page);
+		try {
+			this.movies = await this.fetchMovies(this.state.page);
+		} catch (e) {
+			alert('Error fetching the initial movie list');
+			this.movies = [];
+		}
 
 		this.sleep(3000);
 
@@ -44,12 +49,16 @@ class App extends Component {
 
 	async loadMore(e) {
 		const page = this.state.page + 1;
-		const newResults = await this.fetchMovies(page);
-		this.newMoviesList = this.state.movies.concat(newResults);
-		this.setState({
-			page,
-			movies: this.newMoviesList
-		});
+		try {
+			const newResults = await this.fetchMovies(page);
+			this.newMoviesList = this.state.movies.concat(newResults);
+			this.setState({
+				page,
+				movies: this.newMoviesList
+			});
+		} catch (e) {
+			alert(`Error while fetching page ${page}`)
+		}
 	}
 
 	handleSearch(value) {
