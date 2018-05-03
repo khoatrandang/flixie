@@ -13,7 +13,8 @@ class App extends Component {
 			allMovies: [],
 			movies:    [],
 			isLoading: true,
-			page:      1
+			page:      1,
+			searchText: '',
 		}
 	}
 
@@ -51,11 +52,11 @@ class App extends Component {
 		const page = this.state.page + 1;
 		try {
 			const newResults = await this.fetchMovies(page);
-			this.newMoviesList = this.state.movies.concat(newResults);
 			this.setState({
 				page,
-				movies: this.newMoviesList
+				allMovies: this.state.allMovies.concat(newResults)
 			});
+			this.handleSearch(this.state.searchText);
 		} catch (e) {
 			alert(`Error while fetching page ${page}`)
 		}
@@ -64,6 +65,7 @@ class App extends Component {
 	handleSearch(value) {
 		const filteredMovies = this.state.allMovies.filter( m => m.title.indexOf(value) !== -1 );
 		this.setState({
+			searchText: value,
 			movies: filteredMovies !== undefined ? filteredMovies : this.state.allMovies
 		});
 	}
